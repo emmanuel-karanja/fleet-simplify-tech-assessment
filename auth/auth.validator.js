@@ -4,7 +4,7 @@ const emailSchema=Joi.string().email().lowercase();
 const passwordSchema=Joi.string().min(7).alphanum();
 
 function validateCredentials(creds){
-    const result=Joi.validate(creds,loginSchema,{ abortEarly: false });
+    const result=loginSchema.validate(creds,{ abortEarly: false });
     const{error}=result;
     const isValid= error==null;
     return{

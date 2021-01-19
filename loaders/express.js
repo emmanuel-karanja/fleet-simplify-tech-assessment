@@ -28,7 +28,7 @@ function createExpressApp() {
 
 
   app.use(cors());
-  app.all('/', function(req, res, next) {
+ app.all('/', function(req, res, next) {
     res.header('Access-Control-Allow-Origin', allowedOrigin);
     res.header('Access-Control-Allow-Headers', 'X-Requested-With');
     next();
@@ -38,14 +38,14 @@ function createExpressApp() {
   app.use(bodyParser.urlencoded({ extended: true }));
 
 
-  app.use(helmet());
-  app.disable('x-powered-by');
+  //app.use(helmet());
+  //app.disable('x-powered-by');
 
 
 
   //health-check endpoint
   app.use('/ping', (req, res) => {
-    res.status(200).end();
+    res.status(200).json({response:'pong'});
   });
   //setup REST routes
   require('../modules')(app);  

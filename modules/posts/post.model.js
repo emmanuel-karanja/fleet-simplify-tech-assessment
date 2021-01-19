@@ -34,12 +34,12 @@ const PostSchema = new Schema({
    likes:[{type: Schema.Types.ObjectId,  ref: 'User'}],
 });
 
-PostSchema.methods.like=function(user){
-    this.likes.push(user);
+PostSchema.methods.like=function(userId){
+    this.likes.push(userId);
 }
 
-PostSchema.methods.unlike=function(user){
-   this.likes.remove(user);
+PostSchema.methods.unLike=function(userId){
+   this.likes.remove(userId);
 }
 
 

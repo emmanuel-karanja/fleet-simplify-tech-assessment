@@ -1,8 +1,8 @@
-const Joi=require('@hapi/joi');
+const Joi=require('joi');
 
 function validateUpdate(post){
     //implement the update validation
-    const result=Joi.validate(post,editPosttSchema,{ abortEarly: false });
+    const result=editPostSchema.validate(post,{ abortEarly: false });
     const{error}=result;
     const isValid= error==null;
     return{
@@ -13,7 +13,7 @@ function validateUpdate(post){
 
 function validateNew(newPost){
     //validate task for creation
-    const result=Joi.validate(newPost,createPosttSchema,{ abortEarly: false });
+    const result=createPostSchema.validate(newPost,{ abortEarly: false });
     const{error}=result;
     const isValid= error==null;
     return{

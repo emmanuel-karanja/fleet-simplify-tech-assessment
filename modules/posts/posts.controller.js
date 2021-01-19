@@ -88,8 +88,9 @@ exports.like=async(req,res)=>{
     }
     const postId=req.params.id;
     const loggedInUser=req.user;
+    
     try{
-        const post=await postService.like(loggedInUser,postId)
+        const post=await postService.like(loggedInUser._id,postId)
 
         res.status(200).json({message:'success'});
     }catch(error){

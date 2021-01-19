@@ -1,7 +1,7 @@
-const Joi=require('@hapi/joi');
+const Joi=require('joi');
 
 function validateUpdate(comment){
-    const result=Joi.validate(comment,editCommentSchema,{ abortEarly: false });
+    const result=updateCommentSchema.validate(comment,{abortEarly:false});
     const{error}=result;
     const isValid= error==null;
     return{
@@ -10,7 +10,7 @@ function validateUpdate(comment){
 }
 
 function validateNew(newComment){
-    const result=Joi.validate(newComment,createCommentSchema,{ abortEarly: false });
+    const result=createCommentSchema.validate(newComment,{ abortEarly: false });
     const{error}=result;
     const isValid= error==null;
     return{

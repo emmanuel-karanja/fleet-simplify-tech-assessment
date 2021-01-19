@@ -1,7 +1,7 @@
-const Joi=require('@hapi/joi');
+const Joi=require('joi');
 
 function validateUpdate(user){
-    const result=Joi.validate(user,editUserSchema,{ abortEarly: false });
+    const result=editUserSchema.validate(user,{ abortEarly: false });
     const{error}=result;
     const isValid= error==null;
     return{
@@ -10,7 +10,7 @@ function validateUpdate(user){
 }
 
 function validateNew(newUser){
-    const result=Joi.validate(newUser,createUserSchema,{ abortEarly: false });
+    const result=createUserSchema.validate(newUser,{ abortEarly: false });
     const{error}=result;
     const isValid= error==null;
     return{

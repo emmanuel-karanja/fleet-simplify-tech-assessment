@@ -14,9 +14,8 @@ exports.getCount=async(currentUser)=>{
 exports.getAll=async(currentUser)=>{
      try{
          const posts=await Post.find({author: currentUser._id})
-                                     .sort({id:-1})
-                                     .populate('author', 'firstName lastName email')
-                                     .populate('comments', '_id createdAt content')
+                                     .populate('author', 'firstName lastName email _id')
+                                     .populate('likes','firstName lastName email _id')
                                      .exec();
          return posts;
      }catch(error){
@@ -29,7 +28,7 @@ exports.getPostById=async(currentUser,postId)=>{
     try{
         const post=await Post.findById(postId)
                                    .populate('author', 'firstName lastName email')
-                                   .populate('comments', '_id createdAt content')
+                                   .populate('likes','firstName lastName email _id')
                                    .exec();
         if(!post)
             throw new Error(`Post with id: ${postId} not found!`);
@@ -96,10 +95,10 @@ exports.delete=async(currentUser,postId)=>{
 }
 
 exports.like=async(currentUser,postId)=>{
-	const userId=currentUser._id;
 	try{
 		let post=await Post.findById(postId);
-		post.like(userId);
+		post.like(currentUser._id);
+		post.save();
 	}catch(error){
         console.log(error);
         throw error;
@@ -112,6 +111,7 @@ exports.unLike=async(currentUser,postId)=>{
 	try{
 		let post=await Post.findById(postId);
 		post.unLike(userId);
+		post.save();
 	}catch(error){
         console.log(error);
         throw error;

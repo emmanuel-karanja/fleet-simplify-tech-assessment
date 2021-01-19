@@ -2,10 +2,11 @@
 const  commentService=require('./comments.service');
 
 exports.getAll=async (req,res)=>{
-    if(req.params.postId){
+    if(req.params.postId ==='undefined'){
         res.status(422).json({error: 'No Post Id parameters found'});
         return;
     }
+    
    const loggedInUser=req.user;
    const postId=req.params.postId;
     try{
@@ -20,7 +21,7 @@ exports.getAll=async (req,res)=>{
 
 
 exports.create=async (req,res)=>{
-    if(req.params.postId){
+    if(req.params.postId==='undefined'){
         res.status(422).json({error: 'No Post Id parameters found'});
         return;
     }
@@ -39,7 +40,7 @@ exports.create=async (req,res)=>{
 
 }
 exports.update=async (req,res)=>{
-    if(req.params.id === 'undefined' || req.params.postId){
+    if(req.params.id === 'undefined' || req.params.postId==='undefined'){
         res.status(422).json({error: 'No Post Id parameters found'});
         return;
     }
@@ -59,7 +60,7 @@ exports.update=async (req,res)=>{
 }
 
 exports.delete=async (req,res)=>{
-    if(req.params.id === 'undefined'){
+    if(req.params.id === 'undefined' || req.params.postId ==='undefined'){
         res.status(422).json({error: 'No PostId parameter found'});
         return;
     }
