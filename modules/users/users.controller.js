@@ -13,7 +13,8 @@ exports.getAll=async(req,res)=>{
     res.status(500).json({error:error});
   }
 }
-exports.getUserById=async (req,res,next,userId)=>{
+exports.getUserById=async (req,res)=>{
+    const userId=req.params.id;
     try{
         const user = await userService.getUserById(userId);
         res.status(200).json({data:user});
@@ -56,7 +57,7 @@ exports.delete=async (req,res)=>{
 }
 
 exports.update=async (req,res)=>{
-  const user=req.body;
+  const updatedUserDto=req.body;
   try{
     const updatedUser=await userService.update(updatedUserDto);
     res.status(200).json({data:updatedUser});
@@ -72,10 +73,10 @@ exports.follow=async (req,res)=>{
         res.status(422).json({error: 'No User Id parameters found'});
         return;
     }
-  const userId=req.param;
+  const userId=req.params.id;
   try{
     await userService.follow(loggedInUser,userId);
-    res.status(200).json({status:'success'});
+    res.status(200).json({message:'success'});
   }catch(error){
     console.log(error);
     res.status(500).json({error:error});
@@ -88,11 +89,10 @@ exports.unFollow=async(req,res)=>{
         res.status(422).json({error: 'No User Id parameters found'});
         return;
     }
-  const userId=req.param.id;
-
+  const userId=req.params.id;
   try{
     await userService.unFollow(loggedInUser,userId);
-    res.status(200).json({status:'success'});
+    res.status(200).json({message:'success'});
   }catch(error){
     console.log(error);
     res.status(500).json({error:error});

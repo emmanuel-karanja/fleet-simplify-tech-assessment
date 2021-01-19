@@ -1,5 +1,6 @@
 const userValidator=require('./user.validator');
 const User=require('./user.model');
+const mongoose=require('mongoose');
 
 
 exports.getCount=async()=>{
@@ -104,19 +105,21 @@ exports.follow=async(currentUser,userId)=>{
         //a user cannot follow or unfollow himself
         if(currentUser._id ===userId)
            throw new Error('A user cannot unfollow or follow himself/herself');
-        const targetUser=await User.findById(userId);
+        var targetId=mongoose.Types.ObjectId(userId);
+        var targetUser=await User.findById(targetId);
+        const follower=await User.findById(currentUser._id);
         if(!targetUser) 
            throw new Error('User does not exist, you cannot follow a user who does not exist!');
-        const follower=await User.findById({user:currentUser._id});
+        
         //when target is already being followed by the follower
-        if(targetUser.followedBy.filter(f=>f.user.toString ===currentUser._id).length>0)
+        if(targetUser.followedBy.filter(f=>f._id === currentUser._id).length>0)
             throw new Error(`You are already following user with id:${userId}`);
        
-        targetUser.setFollowedBy({user:currentUser._id});
+        targetUser.setFollowedBy(currentUser._id);
         //get current user(follower), remember that only a subset of the
         //user entity is returned and used in the JWT, so we have to fetch the full entity as such..
         
-        follower.setFollows({user:targetUser._id});
+        follower.setFollows(targetUser._id);
         follower.save();
         targetUser.save();
     }catch(error){
@@ -130,14 +133,16 @@ exports.unFollow=async(currentUser,userId)=>{
         //a user cannot follow or unfollow himself
         if(currentUser._id ===userId)
            throw new Error('A user cannot unfollow or follow himself/herself');
-        const targetUser=await User.findById(userId);
+        //else
+        var targetId=mongoose.Types.ObjectId(userId);
+        const targetUser=await User.findById(targetId);
         if(!targetUser) 
           throw new Error('User does not exist, you cannot unfollow a user who does not exist!');
-        targetUser.UnfollowedBy({user:currentUser._id});
+        targetUser.UnfollowedBy(currentUser._id);
         //get current user(follower), remember that only a subset of the
         //user entity is returned and use in the JWT.
         const follower=await User.findById(currentUser._id);
-        follower.unFollows({user:targetUser._id});
+        follower.unFollows(targetUser._id);
         follower.save();
         targetUser.save();
         

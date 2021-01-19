@@ -20,22 +20,8 @@ const UserSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now},
     modifiedAt:{type: Date,},
     //self-referentials
-    followedBy:[
-        {
-            user:{ 
-                type: mongoose.Schema.ObjectId, 
-                ref: 'User' 
-            },
-        }
-    ],
-    follows:[
-        {
-            user:{ 
-                type: mongoose.Schema.ObjectId, 
-                ref: 'User' 
-            },
-        }
-    ],
+    followedBy:[{type: mongoose.Schema.ObjectId,  ref: 'User' }],
+    follows:[{ type: mongoose.Schema.ObjectId,  ref: 'User'  }],
     lastLogin:{type:Date,}
 });
 
