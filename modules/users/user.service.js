@@ -1,5 +1,5 @@
 const userValidator=require('./user.validator');
-const User=require('./user');
+const User=require('./user.model');
 
 
 exports.getCount=async()=>{

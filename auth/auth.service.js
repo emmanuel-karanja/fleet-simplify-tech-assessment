@@ -1,6 +1,7 @@
 const config=require('../config');
 const jwt = require('jsonwebtoken');
-const {userService}=require('../modules/users/user.service')
+const {userService}=require('../modules/users/user.service');
+const authValidator=require('./auth.validator');
 
 const jwtSecret = config.jwtSecret;
 
@@ -30,5 +31,30 @@ exports.getUser=async(req)=> {
   }
 }
 
+exports.login=async(credsDto)=>{
+   const{isValid, errors}=authValidator.validateCredentials(credsDto);
+    if(!isValid)
+       throw new Error(errors);
 
+    //extract email and password from Dto
+     const {email,password}=credsDto;
+          try{
+              const user=await userService.getUserByEmail(email);
+              if(!user)
+                throw new Error('Authentication failed! User not found!');
+              
+              if(user.authenticate(password)){
+                 user.setLastLogin(new Date);
+                 user.save();
+                 //the JWT generation is handled automatically by the user document
+                 const userProfile=user.authUser();
+                  return {...userProfile,loggedIn:true}
+              }else{
+                  throw new Error('Authentication failed, password incorrect!');
+              }
+            }catch(error){
+               console.log(error);
+               throw error;
+            }
+}
 

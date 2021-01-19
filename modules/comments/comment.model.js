@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+const mongoose =require('mongoose');
 const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
@@ -21,4 +21,5 @@ const CommentSchema = new Schema({
   }
 });
 
-xport default mongoose.model('Comment', CommentSchema);
+const Comment=mongoose.model('Comment',CommentSchema);
+module.exports={Comment,CommentSchema};

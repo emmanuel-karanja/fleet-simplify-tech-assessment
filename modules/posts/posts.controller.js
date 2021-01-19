@@ -1,5 +1,5 @@
 
-const  postService=require('../modules/posts/post.service');
+const  postService=require('./post.service');
 
 exports.getAll=async (req,res)=>{
    const loggedInUser=req.user;

@@ -16,9 +16,11 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true},
     salt:String,
     createdAt: { type: Date, default: Date.now},
-    modifiedAt:{type: Date,}
-    followers:[{type: Schema.Types.ObjectId,  ref: 'User'}],
-    following:[{type: Schema.Types.ObjectId,  ref: 'User'}]
+    modifiedAt:{type: Date,},
+    //self-referentials
+    followed:[this],
+    following:[this],
+    lastLogin:{type:Date,}
 });
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
@@ -52,6 +54,10 @@ UserSchema.methods.setPassword=function(password){
 
 UserSchema.methods.hashPassword=function(password){
     return bcrypt.hashSync(password,this.salt);
+}
+
+UserSchema.methods.setLastLogin=function(date){
+    this.lastLogin=date;
 }
 
 UserSchema.methods.authenticate=function(password){
@@ -101,11 +107,11 @@ UserSchema.methods.unSetFollowed=function(userId){
         this.followed.remove(userId);
 }
 
-UserScheme.methods.setFollowing=function(userId){
+UserSchema.methods.setFollowing=function(userId){
        this.following.push(userId);
 }
 
-UserScheme.methods.unSetFollowing=function(userId){
+UserSchema.methods.unSetFollowing=function(userId){
        this.following.remove(userId);
 }
 

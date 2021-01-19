@@ -1,6 +1,6 @@
-const posttValidator=require('./post.validator');
+const postValidator=require('./post.validator');
 const Post=require('./post.model');
-const userService=require('../users/user.user.service');
+
 exports.getCount=async(currentUser)=>{
     //returns count
     try{
@@ -41,8 +41,8 @@ exports.getPostById=async(currentUser,postId)=>{
 }
 
 exports.create=async (currentUser,postDTO)=>{   
-    if(postDTO === 'undefined' || postDTO===null)
-    const {isValid, errors}=postValidator.validateNew(postDTO);
+    //if(postDTO === 'undefined')
+     const {isValid, errors}=postValidator.validateNew(postDTO);
     if(!isValid)
         throw new Error(errors);
     const newPost=new Post(postDTO);

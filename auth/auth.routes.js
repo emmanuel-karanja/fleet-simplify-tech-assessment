@@ -1,6 +1,7 @@
-const authService=require('./auth.service');
+
+const authController=require('./auth.controller');
 
 module.exports=function(app){
-	app.use('/login')
-	   .post(authService.getUser);
+	app.route('/login')
+	   .post(authController.login);
 }

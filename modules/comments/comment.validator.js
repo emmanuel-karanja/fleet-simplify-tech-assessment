@@ -24,11 +24,11 @@ const commentContentSchema=Joi.string().min(10);
 
 
 const createCommentSchema=Joi.object().keys({
-    content: taskDescSchema.required(),
+    content: commentContentSchema.required(),
 });
 
 const editCommentSchema=Joi.object().keys({
-    content: taskDescSchema.required(),
+    content: commentContentSchema.required(),
 });
 
 

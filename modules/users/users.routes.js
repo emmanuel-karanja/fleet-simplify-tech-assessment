@@ -1,20 +1,20 @@
-const{authenticate}=require('../middlewares/authenticate');
-const userService=require('./user.service');
+const {authenticate}=require('../../middlewares/authenticate');
+const userController=require('./users.controller');
 
 //yu can use app.Router object as well if preferred
 module.exports=function(app){
     app.route('/users')
-        .get(userService.list);
+        .get(userController.getAll);
     app.route('/users/register') 
-       .post(userService.create); 
+       .post(userController.create); 
 
     app.route('/users/:id')
-        .get(userService.getUserById)
-        .put(authenticate,userService.update)
-        .delete(authenticate,userService.delete);
+        .get(userController.getUserById)
+        .put(authenticate,userController.update)
+        .delete(authenticate,userController.delete);
     app.route('/users/:id/follow')
-        .post(authenticate,userService.follow);
+        .post(authenticate,userController.follow);
 
     app.route('/users/:id/unfollow')
-        .post(authenticate,userService.unFollow);
+        .post(authenticate,userController.unFollow);
 };

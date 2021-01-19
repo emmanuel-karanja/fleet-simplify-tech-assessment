@@ -1,13 +1,13 @@
-const {authenticate}=require('../middlewares/authenticate');
-const commentService=require('./comments.service');
+const {authenticate}=require('../../middlewares/authenticate');
+const commentController=require('./comments.controller');
 
 module.exports=function(app){
     app.route('/posts/:postId/comments')
-        .get(authenticate,commentService.getAll)
-        .post(authenticate,commentService.create);
+        .get(authenticate,commentController.getAll)
+        .post(authenticate,commentController.create);
 
     app.route('/posts/:postId/comments/:id')
-        .get(authenticate,commentService.getCommentById)
-        .put(authenticate,commentService.update)
-        .delete(authenticate,commentService.delete);
+        .get(authenticate,commentController.getCommentById)
+        .put(authenticate,commentController.update)
+        .delete(authenticate,commentController.delete);
 };

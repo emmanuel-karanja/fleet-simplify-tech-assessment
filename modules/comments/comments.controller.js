@@ -1,5 +1,5 @@
 
-const  commentService=require('../modules/posts/post.service');
+const  commentService=require('./comments.service');
 
 exports.getAll=async (req,res)=>{
     if(req.params.postId){

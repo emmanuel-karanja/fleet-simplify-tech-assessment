@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+const mongoose =require('mongoose');
 const Schema = mongoose.Schema;
 const CommentSchema='./comments';
 const PostSchema = new Schema({
@@ -43,4 +43,5 @@ PostSchema.methods.unlike=function(user){
 }
 
 
-export default mongoose.model('Post', PostSchema);
+const Post=mongoose.model('Post',PostSchema);
+module.exports=Post;
