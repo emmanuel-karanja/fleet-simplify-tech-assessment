@@ -5,6 +5,9 @@ const userController=require('./users.controller');
 module.exports=function(app){
     app.route('/users')
         .get(userController.getAll);
+     app.route('/users/me')
+        .get(authenticate,userController.myself);
+
     app.route('/users/register') 
        .post(userController.create); 
 

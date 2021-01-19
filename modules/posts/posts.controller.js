@@ -8,7 +8,7 @@ exports.getAll=async (req,res)=>{
         res.status(200).json({data:posts});
     }catch(error){
         console.log(error);
-        res.status(500).json({error:error});
+        res.status(500).json({error:error.toString()});
     }
 
 }
@@ -22,7 +22,7 @@ exports.create=async (req,res)=>{
        res.status(201).json({data:post});
    }catch(error){
        console.log(error);
-       res.status(500).json({error:error});
+       res.status(500).json({error:error.toString()});
    }
 
 
@@ -41,7 +41,7 @@ exports.update=async (req,res)=>{
       res.status(200).json({data:updatedPost});
     }catch(error){
         console.log(error);
-        res.status(500).json({error:error});
+        res.status(500).json({error:error.toString()});
     }
 
 }
@@ -58,7 +58,7 @@ exports.delete=async (req,res)=>{
        return res.status(200).json({message:'success'})
     }catch(error){
         console.log(error);
-        res.status(500).json({error:error});
+        res.status(500).json({error:error.toString()});
     }
 
 };

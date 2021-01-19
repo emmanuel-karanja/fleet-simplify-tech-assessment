@@ -50,7 +50,7 @@ function createExpressApp() {
   //setup REST routes
   require('../modules')(app);  
 
-  app.use(errorHandler)
+  app.use(errorHandler);
 
   return app;
 }

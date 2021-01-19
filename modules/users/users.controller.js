@@ -27,7 +27,11 @@ exports.getUserById=async (req,res)=>{
 
 
 exports.myself=async (req,res)=>{
-    return req.user;
+    const user=req.user;
+    if(user)
+       res.status(200).json(user);
+    //else
+       res.status(404).json({message:'No user is logged in'});
 }
 
 //creation is the same as registration and implies immediate logging in
@@ -40,7 +44,7 @@ exports.create=async (req,res)=>{
     res.status(201).json({data:newUser});
   }catch(error){
     console.log(error);
-    res.status(500).json({error:error});
+    res.status(500).json(error);
   }
 
 }
