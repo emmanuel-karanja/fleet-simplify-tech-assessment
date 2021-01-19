@@ -18,12 +18,23 @@ const UserSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now},
     modifiedAt:{type: Date,},
     //self-referentials
-    followed:[this],
-    following:[this],
+    followed:[{type: mongoose.Schema.Types.ObjectId,ref: 'User'}],
+    following:[{type: mongoose.Schema.Types.ObjectId,ref: 'User'}],
     lastLogin:{type:Date,}
 });
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
+const mongooseValidationErrorTransform = require('mongoose-validation-error-transform');
+ 
+mongoose.plugin(mongooseValidationErrorTransform, {
+  capitalize: true,
+  humanize: true,
+ 
+  transform: function(messages) {
+    return messages.join(', ');
+  }
+ 
+});
 
 UserSchema.statics.getUserByEmail=function(email,callback){
     this.findOne({email:new RegExp(email,'i')},callback)

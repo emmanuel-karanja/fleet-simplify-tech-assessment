@@ -80,10 +80,13 @@ exports.update=async (updatedUser)=>{
     }
 }
 
-exports.delete=async (userId)=>{
+exports.delete=async (currentUser,userId)=>{
     try{
         //a more useful way is to have a 'deleted' field and just set it to true
         //const deletedUser=await User.findByIdAndUpdae(userId,{deleted:true});
+        if(currentUser._id !==userId)
+               throw new Error(`A user cannot delete another user's account`);
+        //else
         const user=await User.findById(userId);
         if(!user)
             throw new Error('Cannot Delete a user who does noy exist');
@@ -105,7 +108,7 @@ exports.follow=async(currentUser,userId)=>{
         //get current user(follower), remember that only a subset of the
         //user entity is returned and use in the JWT.
         const follower=await User.findById(currentUser._id);
-        follower.setFollowing(userId);
+        follower.setFollowing(followed._id);
         follower.save();
         followed.save();
     }catch(error){
@@ -123,7 +126,7 @@ exports.unFollow=async(currentUser,userId)=>{
         //get current user(follower), remember that only a subset of the
         //user entity is returned and use in the JWT.
         const follower=await User.findById(currentUser._id);
-        follower.unSetFollowing(userId);
+        follower.unSetFollowing(followed._id);
         follower.save();
         followed.save();
         

@@ -21,5 +21,16 @@ const CommentSchema = new Schema({
   }
 });
 
+const mongooseValidationErrorTransform = require('mongoose-validation-error-transform');
+ 
+mongoose.plugin(mongooseValidationErrorTransform, {
+  capitalize: true,
+  humanize: true,
+ 
+  transform: function(messages) {
+    return messages.join(', ');
+  }
+ 
+});
 const Comment=mongoose.model('Comment',CommentSchema);
 module.exports={Comment,CommentSchema};

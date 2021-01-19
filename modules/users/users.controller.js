@@ -19,7 +19,7 @@ exports.getUserById=async (req,res,next,userId)=>{
         res.status(200).json({data:user});
     }catch(error){
         console.log(error);
-      res.status(404).json({error:error});
+      res.status(404).json(error);
     }
 }
 
@@ -68,7 +68,7 @@ exports.update=async (req,res)=>{
 
 exports.follow=async (req,res)=>{
   const loggedInUser=req.user;
-  if(req.params.id){
+  if(req.params.id === 'undefined'){
         res.status(422).json({error: 'No User Id parameters found'});
         return;
     }
@@ -84,7 +84,7 @@ exports.follow=async (req,res)=>{
 
 exports.unFollow=async(req,res)=>{
   const loggedInUser=req.user;
-  if(req.params.id){
+  if(req.params.id ==='undefined'){
         res.status(422).json({error: 'No User Id parameters found'});
         return;
     }

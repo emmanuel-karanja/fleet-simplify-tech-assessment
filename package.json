@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start:dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "engine": {
+    "node": "14.x"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +28,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.11.12",
     "mongoose-unique-validator": "^2.0.3",
+    "mongoose-validation-error-transform": "0.0.6",
     "morgan": "^1.10.0"
   },
   "devDependencies": {

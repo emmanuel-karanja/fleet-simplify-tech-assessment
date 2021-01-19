@@ -34,6 +34,18 @@ const PostSchema = new Schema({
    likes:[{type: Schema.Types.ObjectId,  ref: 'User'}],
 });
 
+const mongooseValidationErrorTransform = require('mongoose-validation-error-transform');
+ 
+mongoose.plugin(mongooseValidationErrorTransform, {
+  capitalize: true,
+  humanize: true,
+ 
+  transform: function(messages) {
+    return messages.join(', ');
+  }
+ 
+});
+
 PostSchema.methods.like=function(userId){
     this.likes.push(userId);
 }
