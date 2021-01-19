@@ -12,7 +12,7 @@ module.exports=function(app){
        .post(userController.create); 
 
     app.route('/users/:id')
-        .get(userController.getUserById)
+        .get(authenticate,userController.getUserById)
         .put(authenticate,userController.update)
         .delete(authenticate,userController.delete);
     app.route('/users/:id/follow')

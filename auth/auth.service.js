@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 const userService=require('../modules/users/user.service');
 const authValidator=require('./auth.validator');
 
-//a hack to deal with the heroku issues
+//a hack to deal with the .env heroku issues
 const jwtSecret = 'tetsugaatsuinitsureteutsu';
-//const iwtSecret=config.jwtSecret;
+//const jwtSecret=config.jwtSecret;
 
 const getTokenFromHeader=(req)=>{
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token' ||
@@ -48,11 +48,11 @@ exports.login=async(credsDto)=>{
           //else    
           if(user.authenticate(password)){
              user.setLastLogin(new Date);
-              user.save();
-                 //the JWT generation is handled automatically by the user document
-                 const userProfile=user.authUser();
-                 console.log(userProfile)
-                 return userProfile
+             user.save();
+              //the JWT generation is handled automatically by the user document
+             const userProfile=user.authUser();
+             console.log(userProfile)
+             return userProfile
              }else{
                   throw new Error('Authentication failed, password incorrect!');
              }

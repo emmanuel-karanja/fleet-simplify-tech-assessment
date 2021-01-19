@@ -1,4 +1,4 @@
-const Joi=require('@hapi/joi');
+const Joi=require('joi');
 
 const emailSchema=Joi.string().email().lowercase();
 const passwordSchema=Joi.string().min(7).alphanum();
