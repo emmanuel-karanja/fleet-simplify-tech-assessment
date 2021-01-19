@@ -1,10 +1,11 @@
 const config=require('../config');
 const  mongoose=require('mongoose');
  
-
+ //a hack to mitigate the heroku .env issues
+const DB_URI='mongodb+srv://karanja:admin12@demos-fleet-simplify-no.xevrc.mongodb.net/fleet-simplify-demo?retryWrites=true&w=majority'
 module.exports=async()=>{
-	console.log(config.databaseURL);
-    const db=await mongoose.connect(config.databaseURL,{
+	console.log(DB_URI);
+    const db=await mongoose.connect(DB_URI,{
           useNewUrlParser: true,
           useCreateIndex: false,
           useUnifiedTopology: true 

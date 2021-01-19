@@ -5,7 +5,9 @@ const bcrypt=require('bcrypt');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
-const jwtSecret=config.jwtSecret;
+//!!!a hack to deal with the heroku issues
+const jwtSecret = 'tetsugaatsuinitsureteutsu';
+//const iwtSecret=config.jwtSecret;
 
 const UserSchema = new mongoose.Schema({
     firstName: {type:String,trim:true,required: [true, "can't be blank"],lowercase:true},
@@ -18,8 +20,22 @@ const UserSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now},
     modifiedAt:{type: Date,},
     //self-referentials
-    followed:[{type: mongoose.Schema.Types.ObjectId,ref: 'User'}],
-    following:[{type: mongoose.Schema.Types.ObjectId,ref: 'User'}],
+    followedBy:[
+        {
+            user:{ 
+                type: mongoose.Schema.ObjectId, 
+                ref: 'User' 
+            },
+        }
+    ],
+    follows:[
+        {
+            user:{ 
+                type: mongoose.Schema.ObjectId, 
+                ref: 'User' 
+            },
+        }
+    ],
     lastLogin:{type:Date,}
 });
 
@@ -100,30 +116,33 @@ UserSchema.methods.authUser =function(){
     };
 };
 
+
+//return a subset of the user entity, you don't wan to be sending passwords
 UserSchema.methods.toProfile=function(){
     return{
         _id: this._id,
         fullName: this.fullName,
         email: this.email,
         image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
-        active: this.active,
     }
 }
 
-UserSchema.methods.setFollowed=function(userId){
-        this.followed.push(userId);
+UserSchema.methods.setFollowedBy=function(user){
+    
+        this.followedBy.unshift(user);
 }
 
-UserSchema.methods.unSetFollowed=function(userId){
-        this.followed.remove(userId);
+UserSchema.methods.unFollowedBy=function(user){
+        this.followedBy.remove(user);
 }
 
-UserSchema.methods.setFollowing=function(userId){
-       this.following.push(userId);
+UserSchema.methods.setFollows=function(user){
+    //check that the follower 
+       this.follows.unshift(user);
 }
 
-UserSchema.methods.unSetFollowing=function(userId){
-       this.following.remove(userId);
+UserSchema.methods.unFollows=function(userId){
+       this.follows.remove(userId);
 }
 
 

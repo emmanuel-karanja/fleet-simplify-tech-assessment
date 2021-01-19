@@ -13,7 +13,7 @@ exports.getCount=async(currentUser)=>{
 
 exports.getAll=async(currentUser)=>{
      try{
-         const posts=await Post.find({author: currentUser._id})
+         const posts=await Post.find()
                                      .populate('author', 'firstName lastName email _id')
                                      .populate('likes','firstName lastName email _id')
                                      .exec();
