@@ -7,7 +7,8 @@ const userService=require('./user.service');
 exports.getAll=async(req,res)=>{
   try{
     const users=await userService.getAll();
-    res.status(200).json({data:users});
+    const count=await userService.getCount();
+    res.status(200).json({count:count,data:users});
   }catch(error){
     console.log(error);
     res.status(500).json({error:error});

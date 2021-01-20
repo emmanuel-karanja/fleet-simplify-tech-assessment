@@ -4,7 +4,7 @@ const Post=require('./post.model');
 exports.getCount=async(currentUser)=>{
     //returns count
     try{
-        const count=await Post.countDocuments({author:currentUser._id});
+        const count=await Post.countDocuments();
         return count;
     }catch(error){
         throw error;

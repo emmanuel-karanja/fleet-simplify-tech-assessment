@@ -5,7 +5,8 @@ exports.getAll=async (req,res)=>{
    const loggedInUser=req.user;
     try{
         const posts=await postService.getAll(loggedInUser);
-        res.status(200).json({data:posts});
+        const count=await postService.getCount(loggedInUser);
+        res.status(200).json({count:count,data:posts});
     }catch(error){
         console.log(error);
         res.status(500).json({error:error.toString()});

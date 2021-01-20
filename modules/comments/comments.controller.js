@@ -11,6 +11,7 @@ exports.getAll=async (req,res)=>{
    const postId=req.params.postId;
     try{
         const comments=await commentService.getAll(loggedInUser,postId);
+        const count=await commentService.getCommentCount(loggedInUser,postId);
         res.status(200).json({data:comments});
     }catch(error){
         console.log(error);

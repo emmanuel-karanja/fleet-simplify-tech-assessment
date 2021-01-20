@@ -3,7 +3,7 @@ const {Comment}=require('./comment.model');
 const Post=require('../posts/post.model');
 const userService=require('../users/user.service');
 
-exports.getCount=async(postId)=>{
+exports.getCommentCount=async(currentUser,postId)=>{
     //this is a little bit more involved, 
     try{
         const post=await Post.findById(postId);
@@ -16,7 +16,7 @@ exports.getCount=async(postId)=>{
     }
 }
 
-exports.getAll=async(postId)=>{
+exports.getAll=async(currentUser,postId)=>{
     //implement paging later
     try{
         const post=await Post.findById(postId)

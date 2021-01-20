@@ -3,9 +3,7 @@ const jwt = require('jsonwebtoken');
 const userService=require('../modules/users/user.service');
 const authValidator=require('./auth.validator');
 
-//a hack to deal with the .env heroku issues
-const jwtSecret = 'tetsugaatsuinitsureteutsu';
-//const jwtSecret=config.jwtSecret;
+const jwtSecret=config.jwtSecret;
 
 const getTokenFromHeader=(req)=>{
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token' ||

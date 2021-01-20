@@ -41,12 +41,16 @@ function createExpressApp() {
   //app.use(helmet());
   //app.disable('x-powered-by');
 
-
+  app.use('/', (req, res) => {
+    res.status(200).json({response:'Fleet-simplify-tech-assessment'});
+  });
 
   //health-check endpoint
   app.use('/ping', (req, res) => {
     res.status(200).json({response:'pong'});
   });
+
+  
   //setup REST routes
   require('../modules')(app);  
 

@@ -6,9 +6,12 @@
       i. clone and unzip the repo.
      ii. 'cd project' directory where you unzipped the repo.
     iii. 'npm install' to install the dependencies
-     iv. 'npm start' or 'npm start:dev' to start the application.
+     iv. 'npm start:dev' to start the application in development mode
+          'npm start" to start the application in production mode
 
   **you need an active internet connection because the app connects to a remote mongodb cluster.
+
+   The app URL is 'https://infinite-ravine-72089.herokuapp.com/' on Heroku.
 
  1. The app uses JWT for authentication. The JWT is sent via na Authorization header prefixed 'Bearer '
     or 'Token ' (that space is required, so the thing will  be  like 'Token XXXXXX' where XXXXXX is
@@ -38,9 +41,12 @@
                           data
       DELETE '/users/:id'--->deletes a user given an id.
       GET '/users' -->fetches all users.
+      GET '/users/me'-->fetches the current logged in user.
  
       POST '/users/:id/follow' to follow a user with id 'userId'.
       POST '/users/:id/unfollow' to unfollow a user with id 'userId'.
+
+      
 
   ** a user cannot follow or unfollow himself.
       POST '/posts' -->creates a post with the post data being in the request body i.e. title and content
