@@ -74,7 +74,7 @@ exports.update=async (updatedUser)=>{
         if(!savedUser)
           throw new Error('User could not be updated');
         console.log('User successfully updated');
-        return savedUser.toProfileUser();
+        return savedUser.toProfile();
     }catch(error){
         console.log(error);
         throw error;

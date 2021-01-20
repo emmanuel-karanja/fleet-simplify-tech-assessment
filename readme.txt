@@ -43,6 +43,7 @@
    }
 
    *password must be at least 7 characters long and any of the names must be at least 2 characters.
+   
  6. You can then navigate to 'http://localhost:3000/login' to login.  A mini-profile of the user     
     will be returned along with the JWT.
     Logout has not been implemented
