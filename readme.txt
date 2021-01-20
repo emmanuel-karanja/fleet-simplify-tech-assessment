@@ -1,8 +1,15 @@
 20.01.2021 at 00:22hrs
 
  These are a few instructions:
+ 1. To run it remotely from the hosting:
+    The app is hosted 'https://infinite-ravine-72089.herokuapp.com/' on Heroku.
+    Navitage to The app URL is 'https://infinite-ravine-72089.herokuapp.com/ping' on Heroku to check if   
+    the app is live, you should get the JSON 
+    {
+       "response":"pong"
+    }
 
- 0. To run the app:
+ 2. To run the app in a local deployment:
       i. clone and unzip the repo.
      ii. 'cd project' directory where you unzipped the repo.
     iii. 'npm install' to install the dependencies
@@ -11,14 +18,21 @@
 
   **you need an active internet connection because the app connects to a remote mongodb cluster.
 
-   The app URL is 'https://infinite-ravine-72089.herokuapp.com/' on Heroku.
+   
 
- 1. The app uses JWT for authentication. The JWT is sent via na Authorization header prefixed 'Bearer '
+ 3. The app uses JWT for authentication. The JWT is sent via na Authorization header prefixed 'Bearer '
     or 'Token ' (that space is required, so the thing will  be  like 'Token XXXXXX' where XXXXXX is
     the JWT token. Be sure to set that in your header before sending requests to CRUD posts and Comments.
 
- 2. Navigate to 'http://localhost:3000/ping' to check if the server is responding. 
- 3. Navigate to 'http://localhost:3000/users/register' to register a user. You must provide
+ 4. Navigate to 'http://localhost:3000/ping' or 'https://infinite-ravine-72089.herokuapp.com/ping' to check 
+    if the server is responding.  It should return JSON:
+   {
+       response : 'pong'
+   }
+
+   **API ROOT will refer to either 'https://infinite-ravine-72089.herokuapp.com/' or 'http://localhost:3000'
+     if you are running a local deployment
+ 5. Navigate to 'http://localhost:3000/users/register' to register a user. You must provide
 
    {
      "firstName":"user first name",
@@ -29,12 +43,12 @@
    }
 
    *password must be at least 7 characters long and any of the names must be at least 2 characters.
- 4. You can then navigate to 'http://localhost:3000/login' to login. Logout has not been implemented
+ 6. You can then navigate to 'http://localhost:3000/login' to login. Logout has not been implemented
     yet and usually involves just setting the 'Token XXXX' XXXX to ''. Due to the limited scope of
     the demo, the JWT has been given a long expiry which is not good for production, and 'refresh-token'
     endpoint has not been supplied
 
- 5. The following are the rest of the API end-points:
+ 7. The following are the rest of the API end-points:
 
       GET '/users/:id' -->fetches a user given an id ':id'
       PUT '/users/:id' -->updates a user given an id and requires the request body to contain the update
@@ -67,12 +81,12 @@
             with id 'postId'.
 
 
- 6. To create a comment, all you need to specify is the content i.e.
+ 8. To create a comment, all you need to specify is the content i.e.
     {
       "content":"content goes here"
     }
 
- 7. To create a post, all you need to specify the title and the content:
+ 9. To create a post, all you need to specify the title and the content:
     {
       "title":"post title",
       "content":"content goes here"
