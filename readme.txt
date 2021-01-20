@@ -10,7 +10,7 @@
     }
 
  2. To run the app in a local deployment:
-      i. clone and unzip the repo.
+      i.  clone and unzip the repo.
      ii. 'cd project' directory where you unzipped the repo.
     iii. 'npm install' to install the dependencies
      iv. 'npm start:dev' to start the application in development mode
@@ -43,12 +43,17 @@
    }
 
    *password must be at least 7 characters long and any of the names must be at least 2 characters.
- 6. You can then navigate to 'http://localhost:3000/login' to login. Logout has not been implemented
+ 6. You can then navigate to 'http://localhost:3000/login' to login.  A mini-profile of the user     
+    will be returned along with the JWT.
+    Logout has not been implemented
     yet and usually involves just setting the 'Token XXXX' XXXX to ''. Due to the limited scope of
     the demo, the JWT has been given a long expiry which is not good for production, and 'refresh-token'
-    endpoint has not been supplied
+    endpoint has not been supplied. The JWT is generated on login and also on successful registration
 
  7. The following are the rest of the API end-points:
+
+     POST '/login' -->logs in a user given email and password credentials, returns a mini-profile of            
+                     the user along with the JWT.
 
       GET '/users/:id' -->fetches a user given an id ':id'
       PUT '/users/:id' -->updates a user given an id and requires the request body to contain the update
