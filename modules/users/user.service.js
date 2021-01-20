@@ -28,7 +28,7 @@ exports.getUserById=async(userId)=>{
     try{
         const user=await User.findById(userId)
                              .populate('follows','_id email firstName lastName')
-                             .populate('follows','_id email firstName lastName')
+                             .populate('followedBy','_id email firstName lastName')
                              .exec();
         if(!user)
             throw new Error(`User with id: ${userId} does not exist`);
