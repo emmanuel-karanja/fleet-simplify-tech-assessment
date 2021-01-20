@@ -136,12 +136,15 @@ exports.unFollow=async(currentUser,userId)=>{
         //else
         var targetId=mongoose.Types.ObjectId(userId);
         const targetUser=await User.findById(targetId);
+        const follower=await User.findById(currentUser._id);
+        console.log('inside user.service.unFollow');
+        console.log(targetUser);
         if(!targetUser) 
           throw new Error('User does not exist, you cannot unfollow a user who does not exist!');
-        targetUser.UnfollowedBy(currentUser._id);
+        targetUser.unFollowedBy(currentUser._id);
         //get current user(follower), remember that only a subset of the
         //user entity is returned and use in the JWT.
-        const follower=await User.findById(currentUser._id);
+        
         follower.unFollows(targetUser._id);
         follower.save();
         targetUser.save();
